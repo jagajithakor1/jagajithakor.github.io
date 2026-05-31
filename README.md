@@ -21,10 +21,9 @@ Technologies Used
 HTML5
 CSS3
 JavaScript
-Bootstrap (if used)
 Live Website
 
-Add your website URL here after deployment.
+https://jagajithakor1.github.io/
 
 Contact
 Email: jagajithakor008@gmail.com
