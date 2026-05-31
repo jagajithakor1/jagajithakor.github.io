@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jagaji Thakor | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0f1e;
+      --surface: #111827;
+      --surface2: #1a2236;
+      --border: #1e2d45;
+      --blue: #38bdf8;
+      --cyan: #22d3ee;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --dim: #64748b;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%;
+      background: rgba(10,15,30,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: auto;
+      padding: 0 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      height: 60px;
+    }
+    .logo {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.4rem; font-weight: 700;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: 0.9rem; font-weight: 600; letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--blue); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; color: var(--text); }
+    .mobile-menu {
+      display: none; flex-direction: column; gap: 1rem;
+      padding: 1rem 1.5rem; background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--muted); text-decoration: none; font-weight: 600; }
+
+    /* ── HERO ── */
+    #home {
+      min-height: 100vh; display: flex; align-items: center;
+      justify-content: center; text-align: center;
+      padding: 6rem 1.5rem 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .hero-glow {
+      position: absolute; width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(56,189,248,0.12) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 800px; }
+    .hero-tag {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem; color: var(--cyan);
+      border: 1px solid rgba(34,211,238,0.3);
+      padding: 0.35rem 1rem; border-radius: 999px;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.1em;
+    }
+    h1 {
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      font-weight: 800; line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--cyan) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-subtitle {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      color: var(--muted); margin-bottom: 1rem;
+    }
+    .hero-desc {
+      font-size: 1rem; color: var(--dim);
+      max-width: 600px; margin: 0 auto 2.5rem;
+    }
+    .btn-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      color: #0a0f1e; font-weight: 700; font-size: 0.95rem;
+      padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid var(--border); color: var(--text);
+      font-weight: 600; font-size: 0.95rem;
+      padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--blue); transform: translateY(-2px); }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 1.5rem; }
+    .container { max-width: 1100px; margin: auto; }
+    .section-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800; text-align: center;
+      margin-bottom: 3rem;
+    }
+    .divider {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--cyan));
+      margin: 0.75rem auto 2.5rem;
+      border-radius: 2px;
+    }
+
+    /* ── ABOUT ── */
+    .about-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.5rem;
+    }
+    .about-bio { color: var(--muted); margin-bottom: 1rem; font-size: 1.05rem; }
+    .about-stats {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem; margin-top: 2rem;
+    }
+    .stat-card {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1rem; text-align: center;
+    }
+    .stat-label { font-size: 0.75rem; color: var(--dim); margin-bottom: 0.25rem; }
+    .stat-value { font-weight: 700; color: var(--text); font-size: 0.95rem; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--surface); }
+    .skills-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+    }
+    .skill-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem;
+    }
+    .skill-card h3 {
+      font-size: 1.2rem; font-weight: 700;
+      margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.6rem;
+    }
+    .skill-group { margin-bottom: 1.25rem; }
+    .skill-group-label {
+      font-size: 0.8rem; color: var(--dim);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag {
+      padding: 0.3rem 0.8rem; border-radius: 6px;
+      font-size: 0.82rem; font-weight: 600;
+    }
+    .tag-blue { background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.25); color: var(--blue); }
+    .tag-cyan { background: rgba(34,211,238,0.1); border: 1px solid rgba(34,211,238,0.25); color: var(--cyan); }
+    .tag-green { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.25); color: #34d399; }
+    .tag-purple { background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.25); color: #a78bfa; }
+    .soft-skill {
+      display: flex; align-items: center; gap: 0.75rem;
+      padding: 0.6rem 0.75rem; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 8px;
+      font-size: 0.9rem; color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: #34d399; flex-shrink: 0; }
+
+    /* ── EXPERIENCE ── */
+    .exp-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem;
+      margin-bottom: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .exp-card:hover { border-color: rgba(56,189,248,0.4); }
+    .exp-header {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; flex-wrap: wrap; gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .exp-title { font-size: 1.3rem; font-weight: 700; }
+    .exp-company { color: var(--blue); font-weight: 600; margin-top: 0.2rem; }
+    .exp-meta { text-align: right; }
+    .exp-duration { color: var(--muted); font-size: 0.9rem; }
+    .exp-dept { color: var(--dim); font-size: 0.85rem; }
+    .exp-list { list-style: none; padding: 0; }
+    .exp-list li {
+      padding: 0.4rem 0; color: var(--muted); font-size: 0.95rem;
+      padding-left: 1.25rem; position: relative;
+    }
+    .exp-list li::before {
+      content: '▸'; position: absolute; left: 0;
+      color: var(--blue); font-size: 0.75rem; top: 0.55rem;
+    }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--surface); }
+    .edu-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem;
+      margin-bottom: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .edu-card:hover { border-color: rgba(34,211,238,0.4); }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .project-card:hover { transform: translateY(-4px); border-color: rgba(56,189,248,0.4); }
+    .project-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .project-desc { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.25rem; }
+    .project-tech-label { font-size: 0.75rem; color: var(--dim); margin-bottom: 0.5rem; letter-spacing: 0.05em; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--surface); }
+    .contact-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.5rem; max-width: 700px; margin: auto;
+    }
+    .contact-desc { color: var(--muted); text-align: center; margin-bottom: 2rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { margin-bottom: 1rem; }
+    label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 0.4rem; }
+    input, textarea {
+      width: 100%; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 0.75rem 1rem; color: var(--text);
+      font-family: 'Syne', sans-serif; font-size: 0.95rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    input:focus, textarea:focus { border-color: var(--blue); }
+    textarea { resize: vertical; min-height: 140px; }
+    .btn-submit {
+      width: 100%; background: linear-gradient(135deg, var(--blue), var(--cyan));
+      border: none; color: #0a0f1e; font-weight: 700; font-size: 1rem;
+      padding: 0.9rem; border-radius: 8px; cursor: pointer;
+      font-family: 'Syne', sans-serif;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      transition: opacity 0.2s;
+    }
+    .btn-submit:hover { opacity: 0.85; }
+    .contact-direct {
+      margin-top: 2rem; padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .contact-direct p { color: var(--dim); margin-bottom: 1rem; font-size: 0.9rem; }
+    .contact-links { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+    .contact-links a {
+      color: var(--blue); text-decoration: none; font-size: 0.95rem;
+      display: flex; align-items: center; gap: 0.4rem;
+      transition: color 0.2s;
+    }
+    .contact-links a:hover { color: var(--cyan); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem; text-align: center;
+      color: var(--dim); font-size: 0.85rem;
+    }
+    footer span { color: var(--muted); }
+
+    /* ── ICONS ── */
+    svg { flex-shrink: 0; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .exp-meta { text-align: left; }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-content > * {
+      animation: fadeUp 0.6s ease forwards;
+      opacity: 0;
+    }
+    .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero-content > *:nth-child(2) { animation-delay: 0.2s; }
+    .hero-content > *:nth-child(3) { animation-delay: 0.3s; }
+    .hero-content > *:nth-child(4) { animation-delay: 0.4s; }
+    .hero-content > *:nth-child(5) { animation-delay: 0.5s; }
+    .hero-content > *:nth-child(6) { animation-delay: 0.6s; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <span class="logo">JT</span>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home" onclick="closeMenu()">Home</a>
+    <a href="#about" onclick="closeMenu()">About</a>
+    <a href="#skills" onclick="closeMenu()">Skills</a>
+    <a href="#experience" onclick="closeMenu()">Experience</a>
+    <a href="#education" onclick="closeMenu()">Education</a>
+    <a href="#projects" onclick="closeMenu()">Projects</a>
+    <a href="#contact" onclick="closeMenu()">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <span class="hero-tag">Available for Opportunities</span>
+    <h1>Jagaji<br /><span class="gradient-text">Thakor</span></h1>
+    <p class="hero-subtitle">Assistant Professor &amp; Software Engineer</p>
+    <p class="hero-desc">Passionate educator and full-stack developer specializing in Computer Applications, with expertise in .NET, React, and modern web technologies.</p>
+    <div class="btn-row">
+      <a href="#contact" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+        Get In Touch
+      </a>
+      <a href="#projects" class="btn-outline">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        View Projects
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <h2 class="section-title gradient-text">About Me</h2>
+    <div class="divider"></div>
+    <div class="about-card">
+      <p class="about-bio">Passionate Assistant Professor in Computer Applications with experience in teaching programming languages, MS Office tools, internet technologies, and basic to advanced computer operations. Adept at lesson planning, classroom management, and implementing technology-driven teaching methods to create an engaging learning environment.</p>
+      <p class="about-bio">With a strong background in software engineering, I have worked on backend development and design for healthcare projects, developing scalable backend components using C# and .NET technologies. I combine my industry experience with academic expertise to prepare students for real-world IT challenges.</p>
+      <p class="about-bio">Focused on enhancing student learning outcomes and consistently motivating learners through practical activities and clear explanations to build strong technical confidence.</p>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-label">📍 Location</div>
+          <div class="stat-value">Indrad Kadi, Gujarat</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">✉️ Email</div>
+          <div class="stat-value">jagajithakor008@gmail.com</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">📞 Phone</div>
+          <div class="stat-value">+91 9586157115</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <h2 class="section-title gradient-text">Skills &amp; Expertise</h2>
+    <div class="divider"></div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg> Technical Skills</h3>
+        <div class="skill-group">
+          <div class="skill-group-label">Programming Languages</div>
+          <div class="tags">
+            <span class="tag tag-blue">C</span>
+            <span class="tag tag-blue">C++</span>
+            <span class="tag tag-blue">Java</span>
+            <span class="tag tag-blue">Python</span>
+            <span class="tag tag-blue">C#</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Web Technologies</div>
+          <div class="tags">
+            <span class="tag tag-cyan">HTML</span>
+            <span class="tag tag-cyan">CSS</span>
+            <span class="tag tag-cyan">JavaScript</span>
+            <span class="tag tag-cyan">React JS</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Databases</div>
+          <div class="tags">
+            <span class="tag tag-green">MySQL</span>
+            <span class="tag tag-green">SQL Server</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">Frameworks &amp; Tools</div>
+          <div class="tags">
+            <span class="tag tag-purple">ASP.NET MVC</span>
+            <span class="tag tag-purple">.NET Core</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="skill-card">
+        <h3><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></svg> Soft Skills</h3>
+        <div class="soft-skill"><div class="dot"></div>Teaching &amp; Classroom Management</div>
+        <div class="soft-skill"><div class="dot"></div>Practical Lab Instruction &amp; Student Mentoring</div>
+        <div class="soft-skill"><div class="dot"></div>Curriculum Planning &amp; Academic Content Preparation</div>
+        <div class="soft-skill"><div class="dot"></div>Research &amp; Technical Documentation</div>
+        <div class="soft-skill"><div class="dot"></div>Presentation &amp; Communication Skills</div>
+        <div class="soft-skill"><div class="dot"></div>Team Collaboration</div>
+        <div class="soft-skill"><div class="dot"></div>Problem Solving</div>
+        <div class="soft-skill"><div class="dot"></div>Project Management</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <h2 class="section-title gradient-text">Work Experience</h2>
+    <div class="divider"></div>
+
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-title">Assistant Professor</div>
+          <div class="exp-company">KSV University</div>
+        </div>
+        <div class="exp-meta">
+          <div class="exp-duration">April 2026 – Present</div>
+          <div class="exp-dept">BCA Department</div>
+        </div>
+      </div>
+      <ul class="exp-list">
+        <li>Teaching computer science subjects and conducting practical sessions for BCA students</li>
+        <li>Guiding student projects and preparing comprehensive academic materials</li>
+        <li>Supporting departmental activities and student development initiatives</li>
+        <li>Implementing technology-driven teaching methods to enhance student learning outcomes</li>
+      </ul>
+    </div>
+
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-title">Software Engineer</div>
+          <div class="exp-company" style="color: var(--cyan);">Advantmed</div>
+        </div>
+        <div class="exp-meta">
+          <div class="exp-duration">June 2022 – July 2023</div>
+          <div class="exp-dept">Full-time</div>
+        </div>
+      </div>
+      <ul class="exp-list">
+        <li>Developed scalable backend components using C# and .NET technologies for healthcare projects</li>
+        <li>Worked on backend development and design for Notification Tracker, EMD, and Provider 1st projects</li>
+        <li>Collaborated with cross-functional teams to implement business logic and improve performance</li>
+        <li>Contributed to UI design and integration ensuring smooth functionality and user experience</li>
+        <li>Participated in requirement analysis, debugging, code reviews, and testing for quality deliverables</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <h2 class="section-title gradient-text">Education</h2>
+    <div class="divider"></div>
+
+    <div class="edu-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-title">Master's of Computer Applications</div>
+          <div class="exp-company">KSV University</div>
+        </div>
+        <div class="exp-meta">
+          <div class="exp-duration">2019 – 2021</div>
+        </div>
+      </div>
+      <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 0.5rem;">Advanced coursework in software development, data structures, and system design. Built practical skills in Java, Python, databases, and web technologies.</p>
+      <p style="color: var(--dim); font-size: 0.9rem;">Worked on academic projects focused on real-world applications and problem-solving at H G Raika Vidhyalaya School as Intern.</p>
+    </div>
+
+    <div class="edu-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-title">Bachelor of Computer Applications</div>
+          <div class="exp-company" style="color: var(--cyan);">KSV University</div>
+        </div>
+        <div class="exp-meta">
+          <div class="exp-duration">2016 – 2019</div>
+        </div>
+      </div>
+      <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 0.5rem;">Studied programming, databases, web development, and software engineering. Completed academic projects using C#, JavaScript, HTML, CSS with .NET.</p>
+      <p style="color: var(--dim); font-size: 0.9rem;">Gained comprehensive knowledge of computer networks, data structures, and operating systems.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <h2 class="section-title gradient-text">Featured Projects</h2>
+    <div class="divider"></div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-title">Notification Tracker</div>
+        <p class="project-desc">Worked primarily on backend development using ASP.NET MVC and SQL Server to handle data flow, business logic, and database operations. Implemented features like notification scheduling and status tracking.</p>
+        <div class="project-tech-label">TECHNOLOGIES USED</div>
+        <div class="tags">
+          <span class="tag tag-blue">ASP.NET MVC</span>
+          <span class="tag tag-cyan">React.js</span>
+          <span class="tag tag-green">SQL Server</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-title">EMD + Provider 1st</div>
+        <p class="project-desc">A healthcare solution focused on managing provider data and electronic medical documentation. Responsible for backend development, UI design, and database management. Designed RESTful APIs, handled complex business logic, and optimized database performance.</p>
+        <div class="project-tech-label">TECHNOLOGIES USED</div>
+        <div class="tags">
+          <span class="tag tag-blue">.NET Core</span>
+          <span class="tag tag-cyan">React.js</span>
+          <span class="tag tag-green">SQL Server</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <h2 class="section-title gradient-text">Get In Touch</h2>
+    <div class="divider"></div>
+    <div class="contact-card">
+      <p class="contact-desc">I'm always open to discussing new opportunities, collaborations, or just connecting with fellow professionals. Feel free to reach out!</p>
+      <form onsubmit="handleSubmit(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="name">Your Name *</label>
+            <input type="text" id="name" name="name" placeholder="John Doe" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Your Email *</label>
+            <input type="email" id="email" name="email" placeholder="john@example.com" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject *</label>
+          <input type="text" id="subject" name="subject" placeholder="Job Opportunity / Collaboration" required />
+        </div>
+        <div class="form-group">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" placeholder="Your message here..." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
+          Send Message
+        </button>
+      </form>
+      <div class="contact-direct">
+        <p>Or reach me directly at:</p>
+        <div class="contact-links">
+          <a href="mailto:jagajithakor008@gmail.com">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+            jagajithakor008@gmail.com
+          </a>
+          <a href="tel:+919586157115">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>
+            +91 9586157115
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 <span>Jagaji Thakor</span>. All rights reserved.</p>
+  <p style="margin-top:0.4rem; font-size:0.8rem;">Built with HTML, CSS &amp; JavaScript</p>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button[type=submit]');
+    btn.textContent = '✓ Message Sent!';
+    btn.style.background = '#34d399';
+    setTimeout(() => {
+      btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg> Send Message';
+      btn.style.background = '';
+      e.target.reset();
+    }, 3000);
+  }
+</script>
+
+</body>
+</html>
